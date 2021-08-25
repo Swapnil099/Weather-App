@@ -15,7 +15,8 @@ app.get("/",function(req,res){
 
 app.post("/",function(req,res){
     var today = new Date();
-    var day = today.toLocaleDateString("en-US");
+    var options = { weekday: 'long',day: 'numeric', month: 'long'};
+    var day = today.toLocaleDateString("en-US", options);
     const cityName = req.body.cityInput;
     const apnkey = "8fc700afb06584548f8e43174e308eb0";
     const unit = "metric";
@@ -24,24 +25,36 @@ app.post("/",function(req,res){
     https.get(url,function(response){
         response.on("data",function(data){
             const wheatherdata = JSON.parse(data);
-            const Temperature=wheatherdata.main.temp;
-            const description=wheatherdata.weather[0].description;
-            const name=wheatherdata.name;
-            const min=wheatherdata.main.temp_min;
-            const max=wheatherdata.main.temp_max;
-            const Icon=wheatherdata.weather[0].icon;
+            const code = wheatherdata.cod;
+            console.log(code);
+            // const iconurl = "http://openweathermap.org/img/w/"+Icon+".png";
+            // const iconHTML = "<img src="+iconurl+"></img>"
 
-            res.render("weather",{
-                location: name,
-                currDay: day,
-                condition: description,
-                temprature: Temperature,
-                min: min,
-                max: max,
-                icon: "&#"+Icon+";"
-            });  
+            if(code === 200){
+                const Temperature=wheatherdata.main.temp;
+                const description=wheatherdata.weather[0].description;
+                const name=wheatherdata.name;
+                const min=wheatherdata.main.temp_min;
+                const max=wheatherdata.main.temp_max;
+                const Icon=wheatherdata.weather[0].icon;
+                res.render("weather",{
+                    location: name,
+                    currDay: day,
+                    condition: description,
+                    temprature: Temperature,
+                    min: min,
+                    max: max
+                });
+            }
+            else{
+                res.render("failure",{});
+            }
         });
     });
+});
+
+app.get("/searchagain",function(req,res){
+    res.sendFile(__dirname+"/main.html");
 });
 
 app.listen(3000,function(){
