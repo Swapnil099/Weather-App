@@ -43,7 +43,8 @@ app.post("/",function(req,res){
                     condition: description,
                     temprature: Temperature,
                     min: min,
-                    max: max
+                    max: max,
+                    icon: Icon
                 });
             }
             else{
@@ -57,6 +58,6 @@ app.get("/searchagain",function(req,res){
     res.sendFile(__dirname+"/main.html");
 });
 
-app.listen(3000,function(){
+app.listen(process.env.PORT || 3000,function(){
     console.log("ported to 3000.")
 })

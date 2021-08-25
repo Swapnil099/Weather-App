@@ -33,15 +33,16 @@ p{
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
+    padding: 2rem;
 }
 
 
 
 .container{
     width: 37.7rem;
-    height: 58.1rem;
-    min-width: 37.7rem;
-    min-height: 58.1rem;
+    height: 60.1rem;
+    min-width: 25.7rem;
+    min-height: 45.1rem;
     background-color: var(--skyblue);
     /* margin: 1rem; */
     display: grid;
@@ -98,6 +99,11 @@ p{
     
 };
 
+.icon{
+    width: 50%;
+    height: 50%;
+}
+
 h2 i{
     font-size: 3rem;
 }
@@ -142,3 +148,4 @@ h2 i{
     margin-top: 1rem;
     font-size: 2rem;
 }
+
